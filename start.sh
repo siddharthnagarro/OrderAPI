@@ -8,7 +8,9 @@ docker-compose run composer install  --ignore-platform-reqs --no-interaction --n
 docker exec orderapi_php bash -c 'chmod 777 -R /var/www/html'
 
 echo "===== Clearing cache and running migrations ====="
-docker exec orderapi_php php artisan config:cache && php artisan cache:clear && php artisan optimize:clear
+docker exec orderapi_php php artisan config:cache
+docker exec orderapi_php php artisan cache:clear
+docker exec orderapi_php php artisan optimize:clear
 
 docker exec orderapi_php php artisan migrate
 
