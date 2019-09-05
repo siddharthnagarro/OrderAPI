@@ -1,4 +1,4 @@
-#  RESTful API for OrderAPI
+#  Rest API for OrderAPI
 API to Create, Fetch and Take orders.
 
 ## Docker, language, Framework, Database and server requirement
