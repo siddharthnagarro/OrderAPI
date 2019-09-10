@@ -71,14 +71,16 @@ class DistanceServiceTest extends Tests\TestCase
         $this->assertNotEquals($status, 'OK');
     }
 
-    public function getGuzzleResponseDummy(){
+    public function getGuzzleResponseDummy()
+    {
         $stream = Psr7\stream_for('{"destination_addresses":[" E Glide Rd, Melbourne Airport VIC 3045, Australia"],"origin_addresses":["12 O\'Connell St, Sydney NSW 2000, Australia"],"rows":[{"elements":[{"distance":{"text":"855 km","value":854523},"duration":{"text":"8 hours 23 mins","value":30154},"status":"OK"}]}],"status":"OK"}');
     
         $response = new Response(200, ['Content-Type' => 'application/json'], $stream);
         return $response;
     }
 
-    public function getGuzzleWrongResponseDummy(){
+    public function getGuzzleWrongResponseDummy()
+    {
         $stream = Psr7\stream_for('{"destination_addresses":["37.663712,144.844788"],"origin_addresses":["-33.865143,151.2099"],"rows":[{"elements":[{"status":"ZERO_RESULTS"}]}],"status":"OK"}');
     
         $response = new Response(200, ['Content-Type' => 'application/json'], $stream);

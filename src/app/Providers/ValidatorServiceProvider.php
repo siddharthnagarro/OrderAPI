@@ -6,8 +6,7 @@ class ValidatorServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->app['validator']->extend('validatelatlong', function ($attribute, $value, $parameters)
-        {
+        $this->app['validator']->extend('validatelatlong', function ($attribute, $value, $parameters) {
             $latitude = $value[0];
             $longitude = $value[1];
 
@@ -21,7 +20,7 @@ class ValidatorServiceProvider extends ServiceProvider
                 $error = 'INVALID_PARAMETERS';
             }
 
-            if(empty($error)) {
+            if (empty($error)) {
                 return true;
             } else {
                 return false;

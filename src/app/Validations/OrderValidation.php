@@ -4,10 +4,10 @@ namespace App\Validations;
 
 use Illuminate\Support\Facades\Validator;
 
-class OrderValidation {
-
-    public function validateGetOrders($request) {
-
+class OrderValidation
+{
+    public function validateGetOrders($request)
+    {
         $cases = [
             'page' => 'required|numeric|gt:0',
             'limit' => 'required|numeric|gt:0'
@@ -22,11 +22,10 @@ class OrderValidation {
         } else {
             return true;
         }
-        
     }
 
-    public function validateCreateOrders($data) {
-        
+    public function validateCreateOrders($data)
+    {
         $errorMessage = config('orders.store_messages');
 
         $cases = [
@@ -39,7 +38,6 @@ class OrderValidation {
         if ($validator->fails()) {
             return Response(["error" => $validator->messages()->first()], 400);
         } else {
-
             $originData = $data['origin'];
             $destinationData = $data['destination'];
             
@@ -48,7 +46,7 @@ class OrderValidation {
             $destinationLatitude = $destinationData[0];
             $destinationLongitude = $destinationData[1];
 
-            if($originLatitude == $destinationLatitude && $originLongitude == $destinationLongitude) {
+            if ($originLatitude == $destinationLatitude && $originLongitude == $destinationLongitude) {
                 return Response(["error" => config('orders.store_messages')['samesourcedest']], 400);
             } else {
                 return true;
@@ -56,7 +54,8 @@ class OrderValidation {
         }
     }
 
-    public function validateUpdateOrders($data) {
+    public function validateUpdateOrders($data)
+    {
         $errorMessage = config('orders.update_messages');
         $takenOrderStatus = config('orders.status')['taken'];
 

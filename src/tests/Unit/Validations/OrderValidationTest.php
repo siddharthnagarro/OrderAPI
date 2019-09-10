@@ -85,7 +85,8 @@ class OrderValidationTest extends Tests\TestCase
         $this->assertArrayHasKey('error', $response_data);
     }
 
-    public function testvalidateCreateOrdersMethod() {
+    public function testvalidateCreateOrdersMethod()
+    {
         echo "\n ***** Unit Test: Valid case for Validator - Create Orders ***** \n ";
         $params = [
             'origin'      => [$this->faker->latitude(), $this->faker->longitude()],
@@ -96,7 +97,8 @@ class OrderValidationTest extends Tests\TestCase
         $this->assertTrue($response);
     }
 
-    public function testvalidateCreateOrdersMethodIncorrectParams() {
+    public function testvalidateCreateOrdersMethodIncorrectParams()
+    {
         echo "\n ***** Unit Test: Invalid case for Validator (incorrect params: origin1) - Create Orders ***** \n ";
         $params = [
             'origin1'      => [$this->faker->latitude(), $this->faker->longitude()],
@@ -230,7 +232,8 @@ class OrderValidationTest extends Tests\TestCase
         $this->assertArrayHasKey('error', $response_data);
     }
 
-    public function testvalidateUpdateOrdersMethod() {
+    public function testvalidateUpdateOrdersMethod()
+    {
         echo "\n ***** Unit Test: Valid case for Validator - Update Orders ***** \n ";
         $params = ['status' => 'TAKEN'];
         
@@ -238,7 +241,8 @@ class OrderValidationTest extends Tests\TestCase
         $this->assertTrue($response);
     }
 
-    public function testvalidateUpdateOrdersMethodIncorrectParams() {
+    public function testvalidateUpdateOrdersMethodIncorrectParams()
+    {
         echo "\n ***** Unit Test: Invalid case for Validator (TAKEN2) - Update Orders ***** \n ";
         $params = ['status' => 'TAKEN2'];
         

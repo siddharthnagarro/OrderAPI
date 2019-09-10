@@ -22,11 +22,11 @@ class OrderTest extends TestCase
     {
         echo "\n ***** Valid test - param value (page=4 and limit=2) - should get 200 ***** \n ";
         $params = '{"origin": ["-33.865143","151.209900"], "destination": ["-37.663712","144.844788"]}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $response = $this->json('POST', '/orders', $params);
         
         $params = '{"origin": ["-33.865143","151.209900"], "destination": ["-37.663712","144.844788"]}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $response = $this->json('POST', '/orders', $params);
         
         $params = 'page=1&limit=2';
@@ -135,7 +135,7 @@ class OrderTest extends TestCase
     {
         echo "\n ***** Valid test - Post Order - should get 200 ***** \n ";
         $params = '{"origin": ["-33.865143","151.209900"], "destination": ["-37.663712","144.844788"]}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $response = $this->json('POST', '/orders', $params);
         $response_data = $response->getContent();
         $response->assertStatus(200);
@@ -151,7 +151,7 @@ class OrderTest extends TestCase
     {
         echo "\n ***** Invalid test - param values (more than 2 keys in origin) - should get 400 ***** \n ";
         $params = '{"origin": ["-33.865143","151.209900", "1.56789"], "destination": ["-37.663712","144.844788"]}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $response = $this->json('POST', '/orders', $params);
         $response_data = $response->getContent();
         $response->assertStatus(400);
@@ -160,7 +160,7 @@ class OrderTest extends TestCase
 
         echo "\n ***** Invalid test - param values (more than 2 keys in both) - should get 400 ***** \n ";
         $params = '{"origin": ["-33.865143","151.209900", "1.56789"], "destination": ["-37.663712","144.844788", "1.56789"]}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $response = $this->json('POST', '/orders', $params);
         $response_data = $response->getContent();
         $response->assertStatus(400);
@@ -169,7 +169,7 @@ class OrderTest extends TestCase
 
         echo "\n ***** Invalid test - param keys (origin1) - should get 400 ***** \n ";
         $params = '{"origin1": ["-33.865143","151.209900"], "destination": ["-37.663712","144.844788"]}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $response = $this->json('POST', '/orders', $params);
         $response_data = $response->getContent();
         $response->assertStatus(400);
@@ -178,7 +178,7 @@ class OrderTest extends TestCase
         
         echo "\n ***** Invalid test - param keys (destination1) - should get 400 ***** \n ";
         $params = '{"origin": ["-33.865143","151.209900"], "destination1": ["-37.663712","144.844788"]}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $response = $this->json('POST', '/orders', $params);
         $response_data = $response->getContent();
         $response->assertStatus(400);
@@ -187,7 +187,7 @@ class OrderTest extends TestCase
         
         echo "\n ***** Invalid test - param values (0) - should get 400 ***** \n ";
         $params = '{"origin": ["0","0"], "destination": ["0","0"]}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $response = $this->json('POST', '/orders', $params);
         $response_data = $response->getContent();
         $response->assertStatus(400);
@@ -196,7 +196,7 @@ class OrderTest extends TestCase
         
         echo "\n ***** Invalid test - empty param values - should get 400 ***** \n ";
         $params = '{"origin": ["-33.865143",""], "destination": ["","144.844788"]}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $response = $this->json('POST', '/orders', $params);
         $response_data = $response->getContent();
         $response->assertStatus(400);
@@ -209,13 +209,13 @@ class OrderTest extends TestCase
         echo "\n ***** Valid test - Update Order - should get 200 ***** \n ";
         // Creating test order
         $params1 = '{"origin": ["-33.865143","151.209900"], "destination": ["-37.663712","144.844788"]}';
-        $params1 = json_decode($params1, TRUE);
+        $params1 = json_decode($params1, true);
         $response1 = $this->json('POST', '/orders', $params1);
         $res = $response1->getContent();
         $res = (array) json_decode($res);
         
         $params = '{"status": "TAKEN"}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $query = "/".$res['id'];
         $response = $this->json('PATCH', '/orders'.$query, $params);
         $response_data = $response->getContent();
@@ -231,20 +231,20 @@ class OrderTest extends TestCase
         echo "\n ***** InValid test - Updating Order which is already taken - should get 409 ***** \n ";
         // Creating test order
         $params1 = '{"origin": ["-33.865143","151.209900"], "destination": ["-37.663712","144.844788"]}';
-        $params1 = json_decode($params1, TRUE);
+        $params1 = json_decode($params1, true);
         $response1 = $this->json('POST', '/orders', $params1);
         $res = $response1->getContent();
         $res = (array) json_decode($res);
 
         $params2 = '{"status": "TAKEN"}';
-        $params2 = json_decode($params2, TRUE);
+        $params2 = json_decode($params2, true);
         $query2 = "/".$res['id'];
         $response2 = $this->json('PATCH', '/orders'.$query2, $params2);
         $response_data2 = $response2->getContent();
         $response_data2 = (array) json_decode($response_data2);
 
         $params = '{"status": "TAKEN"}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $query = "/".$res['id'];
         $response = $this->json('PATCH', '/orders'.$query, $params);
         $response_data = $response->getContent();
@@ -255,7 +255,7 @@ class OrderTest extends TestCase
         
         echo "\n ***** Invalid test - param keys (stutas) - should get 400 ***** \n ";
         $params = '{"stutas": "TAKEN"}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $query = "/10";
         $response = $this->json('PATCH', '/orders'.$query, $params);
         $response_data = $response->getContent();
@@ -274,7 +274,7 @@ class OrderTest extends TestCase
         
         echo "\n ***** Invalid test - extra params - should get 400 ***** \n ";
         $params = '{"status": "TAKEN", "extra": "ABCD"}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $query = "/10";
         $response = $this->json('PATCH', '/orders'.$query, $params);
         $response_data = $response->getContent();
@@ -284,7 +284,7 @@ class OrderTest extends TestCase
         
         echo "\n ***** Invalid test - params value (TAKEN2) - should get 400 ***** \n ";
         $params = '{"status": "TAKEN2"}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $query = "/10";
         $response = $this->json('PATCH', '/orders'.$query, $params);
         $response_data = $response->getContent();
@@ -294,7 +294,7 @@ class OrderTest extends TestCase
         
         echo "\n ***** Invalid test - params order id (ABC) - should get 400 ***** \n ";
         $params = '{"status": "TAKEN"}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $query = "/ABC";
         $response = $this->json('PATCH', '/orders'.$query, $params);
         $response_data = $response->getContent();
@@ -304,12 +304,12 @@ class OrderTest extends TestCase
         
         echo "\n ***** Invalid test - Incorrect order id (7000) - should get 404 ***** \n ";
         $params = '{"status": "TAKEN"}';
-        $params = json_decode($params, TRUE);
+        $params = json_decode($params, true);
         $query = "/7000";
         $response = $this->json('PATCH', '/orders'.$query, $params);
         $response_data = $response->getContent();
         $response->assertStatus(404);
         $response_data = (array) json_decode($response_data);
-        $this->assertArrayHasKey('error', $response_data);        
+        $this->assertArrayHasKey('error', $response_data);
     }
 }

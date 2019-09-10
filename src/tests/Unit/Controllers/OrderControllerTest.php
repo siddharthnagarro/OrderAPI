@@ -38,7 +38,8 @@ class OrderControllerTest extends Tests\TestCase
         \Mockery::close();
     }
 
-    public function testListControllerMethod() {
+    public function testListControllerMethod()
+    {
         echo "\n ***** Unit Test: Valid case for Controller - Get Orders ***** \n ";
         $this->orderValidationMock
             ->shouldReceive('validateGetOrders')
@@ -52,10 +53,10 @@ class OrderControllerTest extends Tests\TestCase
         
         $inputParams = 'page=1&limit=3';
         $response = $this->call('GET', '/orders?'.$inputParams);
-        $resData = json_decode($response->baseResponse->original, TRUE);
+        $resData = json_decode($response->baseResponse->original, true);
         $response->assertStatus(200);
 
-        foreach($resData as $order) {
+        foreach ($resData as $order) {
             $this->assertInternalType('array', $order);
             $this->assertArrayHasKey('id', $order);
             $this->assertArrayHasKey('distance', $order);
@@ -75,7 +76,8 @@ class OrderControllerTest extends Tests\TestCase
         $this->assertArrayHasKey('error', $resData);
     }
 
-    public function testCreateControllerMethod() {
+    public function testCreateControllerMethod()
+    {
         echo "\n ***** Unit Test: Valid case for Controller - Create Order ***** \n ";
         $orderRes = array(
             "id"=> $this->faker->numberBetween(1, 999),
@@ -95,12 +97,12 @@ class OrderControllerTest extends Tests\TestCase
             ->once()
             ->andReturn(true);
         
-            $this->distanceServiceMock
+        $this->distanceServiceMock
             ->shouldReceive('calculate_distance')
             ->once()
             ->andReturn($disRes);
         
-            $this->orderModelMock
+        $this->orderModelMock
             ->shouldReceive('createOrder')
             ->once()
             ->andReturn($orderRes);
@@ -114,7 +116,8 @@ class OrderControllerTest extends Tests\TestCase
         $this->assertArrayHasKey('distance', $resData);
     }
 
-    public function testUpdateControllerMethod() {
+    public function testUpdateControllerMethod()
+    {
         echo "\n ***** Unit Test: Valid case for Controller - Update Order ***** \n ";
         $order_id = '1';
         $inputParams = ["status" => "TAKEN"];
@@ -132,7 +135,7 @@ class OrderControllerTest extends Tests\TestCase
         $response = $this->json('PATCH', '/orders/'.$order_id, $inputParams);
         $response_data = $response->getContent();
         $response_data = (array) json_decode($response_data);
-        $resData = json_decode($response->baseResponse->original, TRUE);
+        $resData = json_decode($response->baseResponse->original, true);
         $response->assertStatus(200);
         
         $this->assertArrayHasKey('status', $resData);

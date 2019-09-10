@@ -6,19 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Model\OrderModel;
 use GuzzleHttp\Client;
-Use App\Order;
+use App\Order;
 
 class DistanceService
 {
     protected $client;
 
-    public function __construct(OrderModel $orderModel, Client $client) {
+    public function __construct(OrderModel $orderModel, Client $client)
+    {
         $this->orderModel = $orderModel;
         $this->client = $client;
     }
 
-    public function calculate_distance($orderData) {
-        try{
+    public function calculate_distance($orderData)
+    {
+        try {
             $googleApiKey = env('GOOGLE_API_KEY');
             $googleApiUrl = env('GOOGLE_API_URL');
             $googleApiUnit = env('GOOGLE_API_UNIT');
@@ -36,8 +38,7 @@ class DistanceService
             $response = json_decode($request->getBody());
 
             return $response;
-
-        } catch(\Exception $ex){
+        } catch (\Exception $ex) {
             return Response(["error" => $ex->getMessage()], 400);
         }
     }
