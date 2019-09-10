@@ -25,7 +25,7 @@ class OrderModel extends Model
             
             return Response($allorder, 200);
         } else {
-            return Response(['error' => config('orders.get_messages')['limit_reached']], 406);
+            return Response([], 200);
         }
     }
 

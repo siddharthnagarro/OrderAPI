@@ -50,13 +50,6 @@ class OrderTest extends TestCase
             $this->assertArrayHasKey('distance', $order);
             $this->assertArrayHasKey('status', $order);
         }
-
-        echo "\n ***** Unit Test: Invalid Unit test case for Model - Get Orders - (page=0 & limit=0) ***** \n ";
-        $page = '0';
-        $limit = '0';
-        $resdata2 = $this->orderModel->getOrders($limit, $page);
-        $data2 = json_decode($resdata2->getContent(), true);
-        $this->assertArrayHasKey('error', $data2);
     }
 
     public function testCreateOrdersMethod()
