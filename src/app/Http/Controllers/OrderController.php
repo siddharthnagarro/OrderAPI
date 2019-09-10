@@ -55,7 +55,7 @@ class OrderController extends Controller
                 if($final_data->rows[0]->elements[0]->status == 'OK' && $final_data->status == 'OK') {
                     return $this->orderModel->createOrder($final_data, $data);
                 } else {
-                    return Response(["error" => $final_data->rows[0]->elements[0]->status], 400);
+                    return Response(["error" => config('orders.store_messages')['badrequest']], 400);
                 }
             } else {
                 return Response($validOrder->original, 400);

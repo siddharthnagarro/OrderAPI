@@ -47,7 +47,7 @@ class OrderModel extends Model
             
             return json_encode($responseArr);
         } else {
-            return Response(["error" => $response->rows[0]->elements[0]->status], 400);
+            return Response(["error" => config('orders.store_messages')['badrequest']], 400);
         }
     }
 

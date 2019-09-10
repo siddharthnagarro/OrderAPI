@@ -18,7 +18,7 @@ class OrderValidation {
         $validator = Validator::make($request->all(), $cases, $errorMessage);
         
         if ($validator->fails()) {
-            return Response(["error" => $validator->messages()], 406);
+            return Response(["error" => $validator->messages()->first()], 406);
         } else {
             return true;
         }
@@ -26,7 +26,7 @@ class OrderValidation {
     }
 
     public function validateCreateOrders($data) {
-
+        
         $errorMessage = config('orders.store_messages');
 
         $cases = [
@@ -37,9 +37,22 @@ class OrderValidation {
         $validator = Validator::make($data, $cases, $errorMessage);
         
         if ($validator->fails()) {
-            return Response(["error" => $validator->messages()], 400);
+            return Response(["error" => $validator->messages()->first()], 400);
         } else {
-            return true;
+
+            $originData = $data['origin'];
+            $destinationData = $data['destination'];
+            
+            $originLatitude = $originData[0];
+            $originLongitude = $originData[1];
+            $destinationLatitude = $destinationData[0];
+            $destinationLongitude = $destinationData[1];
+
+            if($originLatitude == $destinationLatitude && $originLongitude == $destinationLongitude) {
+                return Response(["error" => config('orders.store_messages')['samesourcedest']], 400);
+            } else {
+                return true;
+            }
         }
     }
 
@@ -54,7 +67,7 @@ class OrderValidation {
         $validator = Validator::make($data, $cases, $errorMessage);
             
         if ($validator->fails()) {
-            return Response(["error" => $validator->messages()], 400);
+            return Response(["error" => $validator->messages()->first()], 400);
         } else {
             return true;
         }
