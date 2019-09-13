@@ -37,7 +37,7 @@ API to Create, Fetch and Take orders.
 
 ## Swagger integration
 
-1. Open URL for API demo `http://localhost:8000/api-documentation`
+1. Open URL for API demo `http://localhost:8080/api-documentation`
 2. Here you can perform all API operations like GET, UPDATE, POST
 
 ## Code Structure
